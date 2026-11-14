@@ -10,7 +10,6 @@
 <meta name="theme-color" content="#F7F7F7" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<script>/* В тёмной теме приложение само рисует фон под полосой статуса — так цвет совпадает точно */try{if((JSON.parse(localStorage.getItem("hanzi-app-settings-v1")||"null")||{}).theme==="dark")document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').setAttribute("content","black-translucent")}catch(e){}</script>
 <meta name="apple-mobile-web-app-title" content="Маомао" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -118,7 +117,6 @@
      Карточка с тенью остаётся только на компьютере с мышью. */
   @media (hover: none) and (pointer: coarse) {
     .app-frame { padding: 0 !important; }
-    .app-shell { padding-top: env(safe-area-inset-top, 0px); }
     .app-shell {
       max-width: none !important; height: 100dvh !important;
       border: 0 !important; border-radius: 0 !important; box-shadow: none !important;

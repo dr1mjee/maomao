@@ -235,9 +235,9 @@ f();addEventListener("resize",f)})();
 <script>
 /* Трудные слова для преподавателя: после тренировки приложение отправляет в кабинет
    короткую сводку (до 30 слов с наибольшим числом ошибок). Только если преподаватель
-   привязал почту ученика в кабинете (appLinks/{почта}); иначе ничего не отправляется. */
+   привязал UID ученика в кабинете (appLinks/{uid}); иначе ничего не отправляется. */
 (function(){
-  var MAX=30,MIN_LAPSES=2,link={email:null,data:undefined},lastSig=null,busy=false;
+  var MAX=30,MIN_LAPSES=2,link={uid:null,data:undefined},lastSig=null,busy=false;
   function srcMap(){
     if(srcMap.m)return srcMap.m;var m={};
     function walk(o,d){
@@ -258,19 +258,19 @@ f();addEventListener("resize",f)})();
     out.sort(function(a,b){return b.n-a.n||b.la-a.la});return out.slice(0,MAX)}
   window.mmHardSync=function(user,progress){
     try{
-      if(!user||!user.email||!window.firebase||!firebase.firestore||busy)return;
-      var email=String(user.email).toLowerCase(),fs=firebase.firestore();
+      if(!user||!user.uid||!window.firebase||!firebase.firestore||busy)return;
+      var uid=user.uid,fs=firebase.firestore();
       var words=summary(progress),sig=JSON.stringify(words);
-      if(link.email===email&&link.data===null)return;
-      if(link.email===email&&sig===lastSig)return;
+      if(link.uid===uid&&link.data===null)return;
+      if(link.uid===uid&&sig===lastSig)return;
       busy=true;
-      var getLink=link.email===email&&link.data?Promise.resolve(link.data):
-        fs.collection("appLinks").doc(email).get().then(function(d){link={email:email,data:d.exists?d.data():null};return link.data});
+      var getLink=link.uid===uid&&link.data?Promise.resolve(link.data):
+        fs.collection("appLinks").doc(uid).get().then(function(d){link={uid:uid,data:d.exists?d.data():null};return link.data});
       getLink.then(function(l){
         if(!l)return;
-        return fs.collection("hardWords").doc(email).set({teacherId:l.teacherId,studentId:l.studentId,email:email,words:words,
+        return fs.collection("hardWords").doc(uid).set({teacherId:l.teacherId,studentId:l.studentId,uid:uid,words:words,
           updatedAt:firebase.firestore.FieldValue.serverTimestamp()}).then(function(){lastSig=sig})
-      }).catch(function(){link={email:email,data:null}}).then(function(){busy=false})
+      }).catch(function(){link={uid:uid,data:null}}).then(function(){busy=false})
     }catch(e){busy=false}
   };
 })();

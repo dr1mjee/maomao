@@ -226,7 +226,7 @@ f();addEventListener("resize",f)})();
 </script>
 <script>
 /* Цвет фона страницы и полосы статуса = цвет приложения: телефон — белый / #262626 (тёмная), шире — #F7F7F7 / #242424 */
-(function(){var mq=window.matchMedia("(max-width: 639px)");function ap(){var d=false;try{d=(JSON.parse(localStorage.getItem("hanzi-app-settings-v1")||"null")||{}).theme==="dark"}catch(e){}var bg=d?(mq.matches?"#262626":"#242424"):(mq.matches?"#FFFFFF":"#F7F7F7");if(window.__mmSheet>0){var v=parseInt(bg.slice(1,3),16),x=Math.round(d?v*.7+217*.3:v*.7).toString(16);if(x.length<2)x="0"+x;bg="#"+x+x+x}document.documentElement.style.setProperty("--mm-page",bg);var t=document.querySelector('meta[name="theme-color"]');t&&t.setAttribute("content",bg)}window.__mmPageBg=ap;ap();mq.addEventListener?mq.addEventListener("change",ap):mq.addListener&&mq.addListener(ap)})();
+(function(){var mq=window.matchMedia("(max-width: 639px)");function ap(){var d=false;try{d=(JSON.parse(localStorage.getItem("hanzi-app-settings-v1")||"null")||{}).theme==="dark"}catch(e){}var bg=d?(mq.matches?"#262626":"#242424"):(mq.matches?"#FFFFFF":"#F7F7F7");if(window.__mmSheet>0){var v=parseInt(bg.slice(1,3),16),x=Math.round(d?v*.7+217*.3:v*.7).toString(16);if(x.length<2)x="0"+x;bg="#"+x+x+x}document.documentElement.style.setProperty("--mm-page",bg);var t=document.querySelector('meta[name="theme-color"]');t&&t.setAttribute("content",bg==="#262626"?"#272726":bg)}window.__mmPageBg=ap;ap();mq.addEventListener?mq.addEventListener("change",ap):mq.addListener&&mq.addListener(ap)})();
 </script>
 </head>
 <body>
